@@ -1,0 +1,826 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Peak Fitters &#8212; euv_fitting [0.2.0] documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'peakfitting';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Calibrators" href="calibration.html" />
+    <link rel="prev" title="Introduction" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">euv_fitting [0.2.0] documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="intro.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Peak Fitters
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="calibration.html">
+                        Calibrators
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="intro.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Peak Fitters
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="calibration.html">
+                        Calibrators
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Peak Fitters</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="peak-fitters">
+<span id="peakfitting-chapter"></span><h1>Peak Fitters<a class="headerlink" href="#peak-fitters" title="Permalink to this heading">#</a></h1>
+<p>In order to complete calibration and line identification, it is essential to know
+the center of the peaks in a spectra. To this end, euv_fitting include automatic
+peak fitting classes that will extract these centers.</p>
+<section id="introduction-to-peak-fitting">
+<h2>Introduction to Peak Fitting<a class="headerlink" href="#introduction-to-peak-fitting" title="Permalink to this heading">#</a></h2>
+<p>Peak fitting has three main steps:</p>
+<ol class="arabic simple">
+<li><p>Detection of peaks in the spectra</p></li>
+<li><p>Determination of region to fit for each peak</p></li>
+<li><p>Least Squares minimization of gaussian parameters.</p></li>
+</ol>
+<p>Both MultiBatchGaussian and MultiPeakGaussian represent peaks as gaussian distributions, or</p>
+<div class="math notranslate nohighlight">
+\[I(x; A, x_0, \sigma) = \frac{A}{\sigma \sqrt{2 \pi}} \exp(\frac{-(x-x_0)^2}{2 \sigma ^ 2})\]</div>
+<p>Where <span class="math notranslate nohighlight">\(x\)</span> is the channel or wavelength, <span class="math notranslate nohighlight">\(I(x)\)</span> is the intensity at a
+given x value, <span class="math notranslate nohighlight">\(A\)</span> is the amplitude, <span class="math notranslate nohighlight">\(x_0\)</span> is the center
+of the gaussian, and <span class="math notranslate nohighlight">\(\sigma\)</span> controls the width. The children of the PeakFitter
+class convert arrays of x, y data into the best-fit parameters of the gaussians
+in the data.</p>
+<p>As an example on some dummy data:</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">euv_fitting.calibrate.utils</span> <span class="kn">import</span> <span class="n">MultiBatchGaussian</span>
+
+<span class="k">def</span> <span class="nf">gauss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">amp</span><span class="p">,</span> <span class="n">cen</span><span class="p">,</span> <span class="n">sig</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">amp</span> <span class="o">/</span> <span class="p">(</span><span class="n">sig</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">cen</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sig</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2047</span><span class="p">,</span> <span class="mi">2048</span><span class="p">)</span>
+
+<span class="n">N_GAUSS</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">AMPLITUDES</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="n">N_GAUSS</span><span class="p">)</span> <span class="o">*</span> <span class="mi">500</span>
+<span class="n">CENTERS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">1800</span><span class="p">,</span> <span class="n">N_GAUSS</span><span class="p">)</span>
+<span class="n">SIGMAS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">N_GAUSS</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">gauss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">amp</span><span class="p">,</span> <span class="n">cen</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span> <span class="k">for</span> <span class="n">amp</span><span class="p">,</span> <span class="n">cen</span><span class="p">,</span> <span class="n">sig</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">AMPLITUDES</span><span class="p">,</span> <span class="n">CENTERS</span><span class="p">,</span> <span class="n">SIGMAS</span><span class="p">))</span> <span class="c1">#Add amplitudes of each gaussian</span>
+<span class="n">y</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">2048</span><span class="p">)</span> <span class="c1">#Add random gaussian noise</span>
+
+<span class="n">multi</span> <span class="o">=</span> <span class="n">MultiBatchGaussian</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">num_peaks</span> <span class="o">=</span> <span class="n">N_GAUSS</span><span class="p">)</span>
+<span class="c1">#Note the x argument is optional. If not given, x defaults to np.linspace(0, len(y) - 1, len(y))</span>
+
+<span class="n">multi</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">plot_fit</span><span class="p">(</span><span class="n">normalize_background</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/peakfitting_0_0.png" src="_images/peakfitting_0_0.png" />
+</div>
+</div>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span> <span class="c1">#Generate ax object for multi.plot_fit()</span>
+<span class="n">multi</span><span class="o">.</span><span class="n">plot_fit</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="n">normalize_background</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">275</span><span class="p">,</span> <span class="mi">325</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/peakfitting_1_0.png" src="_images/peakfitting_1_0.png" />
+</div>
+</div>
+<p>The centroids are stored in the <cite>multi.centroids</cite> attribute, and information about
+all of the peak parameters are stored in the <cite>multi.gauss_data</cite> attribute.</p>
+<p>.centroids is an (N x 2) NumPy array, where the first column is the center value and
+the second is the center uncertainty. By default, <cite>.centroids</cite> is sorted in decreasing
+order of intensity. The <cite>.get_centroids_ascending()</cite> method returns centroids in increasing
+order of center value.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_fit_centers</span><span class="p">,</span> <span class="n">best_fit_uncertainties</span> <span class="o">=</span> <span class="n">multi</span><span class="o">.</span><span class="n">get_centroids_ascending</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1">#Print column headers</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;True Center&#39;</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="s1">&#39;Fit Center&#39;</span><span class="si">:</span><span class="s2">&gt;14</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="s1">&#39;Fit Center Uncertainty&#39;</span><span class="si">:</span><span class="s2">&gt;20</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">true_center</span><span class="p">,</span> <span class="n">best_fit_center</span><span class="p">,</span> <span class="n">best_fit_uncertainty</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+    <span class="n">CENTERS</span><span class="p">,</span> <span class="n">best_fit_centers</span><span class="p">,</span> <span class="n">best_fit_uncertainties</span><span class="p">):</span>
+
+
+
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">true_center</span><span class="si">:</span><span class="s1">14.3f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">best_fit_center</span><span class="si">:</span><span class="s1"> 14.3f</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">best_fit_uncertainty</span><span class="si">:</span><span class="s1"> 20.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>   True Center,     Fit Center, Fit Center Uncertainty
+       300.000,        300.001,                0.017
+       466.667,        466.661,                0.023
+       633.333,        633.331,                0.029
+       800.000,        799.995,                0.013
+       966.667,        966.657,                0.016
+      1133.333,       1133.371,                0.025
+      1300.000,       1300.012,                0.016
+      1466.667,       1466.660,                0.021
+      1633.333,       1633.324,                0.026
+      1800.000,       1800.020,                0.017
+</pre></div>
+</div>
+</div>
+</div>
+<div class="jupyter_cell docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/peakfitting_3_0.png" src="_images/peakfitting_3_0.png" />
+</div>
+</div>
+<p>The centroids can then be used by the calibration classes or analyzed further
+for line identification.</p>
+<p>Read on for more information about the two peak fitting classes, or continue to
+the next page to learn about the calibration process.</p>
+</section>
+<section id="multibatchgaussian">
+<h2>MultiBatchGaussian<a class="headerlink" href="#multibatchgaussian" title="Permalink to this heading">#</a></h2>
+<p>MultiBatchGaussian leverages the fast drop-off of the gaussian function to
+reduce runtime by fitting isolated gaussians separately. If several gaussians are close
+enough to affect each other (within ~12 channels) they are grouped into a <strong>batch</strong>.
+Each batch of gaussians is then fit with the appropriate number of gaussians, as well
+as a constant or linear background.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiBatchGaussian">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">euv_fitting.calibrate.utils.</span></span><span class="sig-name descname"><span class="pre">MultiBatchGaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'channel'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'adu'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiBatchGaussian" title="Permalink to this definition">#</a></dt>
+<dd><p>Fits a sum of peak-like functions to isolated sections of an array.</p>
+<p>Since peak-like functions drop off to below noise levels within 2~3 sigma,
+only peaks that are close together need to be fit together. This class handles
+grouping up different peaks, fitting them, and storing the parameters of these peaks
+in the gauss_data and centroids variables.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#euv_fitting.calibrate.utils.MultiPeakGaussian" title="euv_fitting.calibrate.utils.MultiPeakGaussian"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiPeakGaussian</span></code></a></dt><dd><p>Fits the whole dataset simultaneously.</p>
+</dd>
+</dl>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiBatchGaussian.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interp_strat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'match_data'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.eval" title="Permalink to this definition">#</a></dt>
+<dd><p>Helper function to evaluate model at given x values.</p>
+<p>If an x value lies within a batch, the y value is results[batch].eval(x = x0).
+Otherwise, the y value is calculated by linearly interpolating between the edges of the two nearest batches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>array-like</em><em>, </em><em>optional</em>) – x values to evaluate model at. Defaults to <cite>self.xs</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>predicted y values of model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiBatchGaussian.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_find_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.fit" title="Permalink to this definition">#</a></dt>
+<dd><p>Automatically detects and fit peaks to obtain their parameters.</p>
+<p>This is the main function of the multibatchgaussian class. It handles
+peak detection, batch generation, and batch fitting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> (<em>{'gaussian'</em><em>, </em><em>'voigt'}</em><em>, </em><em>optional</em>) – Type of function to fit data with.</p></li>
+<li><p><strong>auto_find_peaks</strong> (<em>boolean</em><em>, </em><em>optional</em>) – Whether or not to automatically detect peaks.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Keyword-arguments to pass to get_peak_indices and other functions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiBatchGaussian.fit_batch">
+<span class="sig-name descname"><span class="pre">fit_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.fit_batch" title="Permalink to this definition">#</a></dt>
+<dd><p>Fits a slice of x, y as a sum of peak-like functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch</strong> (<em>(</em><em>int</em><em>, </em><em>int</em><em>)</em><em>, </em><em>[</em><em>list</em><em> of </em><em>ints</em><em>]</em>) – The tuple is (low_index, high_index) of the batch being fit.
+The list is all peak locations in the data.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em>) – Contains all x values of the data being fit.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – Contains all y values of the data being fit.</p></li>
+<li><p><strong>weights</strong> (<em>array-like</em>) – Contains all weights of the data being fit. Calculated as
+weights = 1 / self.y_err</p></li>
+<li><p><strong>function</strong> (<em>{'gaussian'</em><em>,</em><em>'voigt'}</em><em>, </em><em>optional</em>) – Type of function to fit data with.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – Result of fit. Contains information about uncertainties,
+optimal parameter values, background signals.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>lmfit.ModelResult</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiBatchGaussian.generate_batches">
+<span class="sig-name descname"><span class="pre">generate_batches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peak_idxs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.generate_batches" title="Permalink to this definition">#</a></dt>
+<dd><p>Generates batches from peak indexes by grouping close peaks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peak_idxs</strong> (<em>list</em><em> of </em><em>ints</em>) – Detected peaks in data, typically the n-highest amplitude.</p></li>
+<li><p><strong>width_func</strong> (<em>callable</em><em>, </em><em>optional</em>) – Function must have signature f(x, y) = width, where x and y are array-like
+slices of the input array, and width is an integer representing the half-width
+in indexes of the peak.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>batches</strong> – The tuple is (low_index, high_index) of the batch being fit.
+The list is all peak locations in the data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of (int, int), [list of ints]</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dummy_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MBG</span> <span class="o">=</span> <span class="n">MultiBatchGaussian</span><span class="p">(</span><span class="n">dummy_y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MBG</span><span class="o">.</span><span class="n">generate_batches</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">200</span><span class="p">])</span>
+<span class="go">[((2, 23), [10, 15]), ((92, 108), [100])]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiBatchGaussian.get_background">
+<span class="sig-name descname"><span class="pre">get_background</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interp_strat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'match_data'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.get_background" title="Permalink to this definition">#</a></dt>
+<dd><p>Helper function to evaluate model at given x values.</p>
+<p>If an x value lies within a batch, the returned value is results[batch].eval_components(x = x0)[‘Poly’].
+Otherwise, the y value is calculated by linearly interpolating between the edges of the two nearest batches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>array-like</em><em>, </em><em>optional</em>) – x values to evaluate model at. Defaults to <cite>self.xs</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>predicted y values of model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiBatchGaussian.place_in_batch">
+<span class="sig-name descname"><span class="pre">place_in_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.place_in_batch" title="Permalink to this definition">#</a></dt>
+<dd><p>Helper function to find index(es) of batch closest to idx.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – Index of point to be tested.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>batch index if idx lies within a batch or (left batch index, right batch index) if idx
+is not within a batch.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int or [int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="multipeakgaussian">
+<h2>MultiPeakGaussian<a class="headerlink" href="#multipeakgaussian" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>MultiPeakGaussian fits the entire spectrum simultaneously, and is similar to treating
+the whole spectra as one large batch. This has the benefit of not needing an initial
+guess of the gaussian’s <span class="math notranslate nohighlight">\(\sigma\)</span>, but does substantially increase the runtime/
+instability of the fitting process.</p>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">euv_fitting.calibrate.utils.</span></span><span class="sig-name descname"><span class="pre">MultiPeakGaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'channel'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'adu'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian" title="Permalink to this definition">#</a></dt>
+<dd><p>Fits a sum of peak-like functions (gaussians by default) to an array with
+options for plotting or disk storage of the resulting fit.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.add_composite">
+<span class="sig-name descname"><span class="pre">add_composite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lit_vals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rel_intensities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.add_composite" title="Permalink to this definition">#</a></dt>
+<dd><p>Adds a composite / multipeak feature to be built later.</p>
+<dl>
+<dt>lit_vals: list of floats - literature values for the wavelengths/energies</dt><dd><p>example: [501.1, 500.3, 502.4]</p>
+</dd>
+<dt>rel_intensties: list of lists of two floats or None - describes relative intensities of lines</dt><dd><blockquote>
+<div><p>At least one entry must be None to avoid circular references.</p>
+</div></blockquote>
+<p>example: [(1, 2), None, (0, 1/2)]
+This will be interpreted as follows:
+the 0th peak will have 2 times the amplitude of the 1st peak
+The 1st peak is allowed to vary freely due to the None
+the 2nd peak will have 1/2 times the amplitude of the 0th peak.</p>
+<p>Equivalently, you could have written:
+rel_intensities = [(1, 2), None, (1, 1)]
+rel_intensities = [None, (0, 1/2), (1, 1)]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.add_gaussian">
+<span class="sig-name descname"><span class="pre">add_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.add_gaussian" title="Permalink to this definition">#</a></dt>
+<dd><p>Finds the index of the given x-position, and adds a peak to build later</p>
+<p>x_postion: float - x_position to add peak later</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.build_composites">
+<span class="sig-name descname"><span class="pre">build_composites</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.build_composites" title="Permalink to this definition">#</a></dt>
+<dd><p>Used in fit() to add composite features to the model and params.</p>
+<p>model: lmfit.Model - model to add features to.
+params: lmfit.Parameters - Parameters object to store feature info in
+function: string - ‘gaussian’ or ‘voigt’ depending on peak type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.build_gaussians">
+<span class="sig-name descname"><span class="pre">build_gaussians</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">same_sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_estimate_points</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.build_gaussians" title="Permalink to this definition">#</a></dt>
+<dd><p>Used in fit() to add single peaks to the model and params.</p>
+<p>model: lmfit.Model - model to add features to.
+params: lmfit.Parameters - Parameters object to store feature info in
+same_sigma: boolean - whether or not to force all peaks to share sigma / width
+function: string - ‘gaussian’ or ‘voigt’ depending on peak type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">same_sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_find_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.fit" title="Permalink to this definition">#</a></dt>
+<dd><p>Primary function of class, finds parameters of peaks to best fit data.</p>
+<p>return_dict: dict - used for threading, if given stores results in dict
+function: string - ‘gaussian’ or ‘voigt’ depending on peak type
+same_sigma: boolean - whether to force peaks to share sigma / width
+auto_find_peaks: boolean - if True, self.num_peaks are automatically identified.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.get_centroids_ascending">
+<span class="sig-name descname"><span class="pre">get_centroids_ascending</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.get_centroids_ascending" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns centroids in increasing x value</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.read_hdf">
+<span class="sig-name descname"><span class="pre">read_hdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.read_hdf" title="Permalink to this definition">#</a></dt>
+<dd><p>reads fit data from header of the hdf5 dataset to save runtime</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.to_hdf">
+<span class="sig-name descname"><span class="pre">to_hdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.to_hdf" title="Permalink to this definition">#</a></dt>
+<dd><p>stores fit data in header of the hdf5 dataset for later use</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="calibration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Calibrators</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-peak-fitting">Introduction to Peak Fitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multibatchgaussian">MultiBatchGaussian</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.eval"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian.eval()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.fit"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian.fit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.fit_batch"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian.fit_batch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.generate_batches"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian.generate_batches()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.get_background"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian.get_background()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.place_in_batch"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian.place_in_batch()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multipeakgaussian">MultiPeakGaussian</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.add_composite"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.add_composite()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.add_gaussian"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.add_gaussian()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.build_composites"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.build_composites()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.build_gaussians"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.build_gaussians()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.fit"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.fit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.get_centroids_ascending"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.get_centroids_ascending()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.read_hdf"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.read_hdf()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.to_hdf"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.to_hdf()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="_sources/peakfitting.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023 - Hunter Staiger.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
