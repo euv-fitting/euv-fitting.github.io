@@ -149,6 +149,13 @@
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="uncertainty.html">
+                        Uncertainties
+                      </a>
+                    </li>
+                
   </ul>
 </nav></div>
       
@@ -246,6 +253,13 @@ document.write(`
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="uncertainty.html">
+                        Uncertainties
+                      </a>
+                    </li>
+                
   </ul>
 </nav></div>
         
@@ -319,8 +333,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="peak-fitters">
-<span id="peakfitting-chapter"></span><h1>Peak Fitters<a class="headerlink" href="#peak-fitters" title="Permalink to this heading">#</a></h1>
+  <span class="target" id="module-euv_fitting.calibrate.utils"><span id="peakfitting-chapter"></span></span><section id="peak-fitters">
+<h1>Peak Fitters<a class="headerlink" href="#peak-fitters" title="Permalink to this heading">#</a></h1>
 <p>In order to complete calibration and line identification, it is essential to know
 the center of the peaks in a spectra. To this end, euv_fitting include automatic
 peak fitting classes that will extract these centers.</p>
@@ -410,16 +424,16 @@ order of center value.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>   True Center,     Fit Center, Fit Center Uncertainty
-       300.000,        300.001,                0.017
-       466.667,        466.661,                0.023
-       633.333,        633.331,                0.029
-       800.000,        799.995,                0.013
-       966.667,        966.657,                0.016
-      1133.333,       1133.371,                0.025
-      1300.000,       1300.012,                0.016
-      1466.667,       1466.660,                0.021
-      1633.333,       1633.324,                0.026
-      1800.000,       1800.020,                0.017
+       300.000,        300.013,                0.015
+       466.667,        466.637,                0.019
+       633.333,        633.341,                0.018
+       800.000,        800.017,                0.022
+       966.667,        966.648,                0.020
+      1133.333,       1133.358,                0.018
+      1300.000,       1300.000,                0.030
+      1466.667,       1466.634,                0.029
+      1633.333,       1633.346,                0.016
+      1800.000,       1799.974,                0.029
 </pre></div>
 </div>
 </div>
@@ -435,7 +449,7 @@ for line identification.</p>
 the next page to learn about the calibration process.</p>
 </section>
 <section id="multibatchgaussian">
-<h2>MultiBatchGaussian<a class="headerlink" href="#multibatchgaussian" title="Permalink to this heading">#</a></h2>
+<h2><a class="reference internal" href="#euv_fitting.calibrate.utils.MultiBatchGaussian" title="euv_fitting.calibrate.utils.MultiBatchGaussian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiBatchGaussian</span></code></a><a class="headerlink" href="#multibatchgaussian" title="Permalink to this heading">#</a></h2>
 <p>MultiBatchGaussian leverages the fast drop-off of the gaussian function to
 reduce runtime by fitting isolated gaussians separately. If several gaussians are close
 enough to affect each other (within ~12 channels) they are grouped into a <strong>batch</strong>.
@@ -443,7 +457,7 @@ Each batch of gaussians is then fit with the appropriate number of gaussians, as
 as a constant or linear background.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiBatchGaussian">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">euv_fitting.calibrate.utils.</span></span><span class="sig-name descname"><span class="pre">MultiBatchGaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'channel'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'adu'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiBatchGaussian" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultiBatchGaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'channel'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'adu'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiBatchGaussian" title="Permalink to this definition">#</a></dt>
 <dd><p>Fits a sum of peak-like functions to isolated sections of an array.</p>
 <p>Since peak-like functions drop off to below noise levels within 2~3 sigma,
 only peaks that are close together need to be fit together. This class handles
@@ -593,16 +607,14 @@ is not within a batch.</p>
 
 </section>
 <section id="multipeakgaussian">
-<h2>MultiPeakGaussian<a class="headerlink" href="#multipeakgaussian" title="Permalink to this heading">#</a></h2>
-<blockquote>
-<div><p>MultiPeakGaussian fits the entire spectrum simultaneously, and is similar to treating
+<h2><a class="reference internal" href="#euv_fitting.calibrate.utils.MultiPeakGaussian" title="euv_fitting.calibrate.utils.MultiPeakGaussian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiPeakGaussian</span></code></a><a class="headerlink" href="#multipeakgaussian" title="Permalink to this heading">#</a></h2>
+<p>MultiPeakGaussian fits the entire spectrum simultaneously, and is similar to treating
 the whole spectra as one large batch. This has the benefit of not needing an initial
 guess of the gaussian’s <span class="math notranslate nohighlight">\(\sigma\)</span>, but does substantially increase the runtime/
 instability of the fitting process.</p>
-</div></blockquote>
 <dl class="py class">
 <dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">euv_fitting.calibrate.utils.</span></span><span class="sig-name descname"><span class="pre">MultiPeakGaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'channel'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'adu'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultiPeakGaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_err</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resolution</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'channel'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_unit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'adu'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian" title="Permalink to this definition">#</a></dt>
 <dd><p>Fits a sum of peak-like functions (gaussians by default) to an array with
 options for plotting or disk storage of the resulting fit.</p>
 <dl class="py method">
@@ -625,13 +637,6 @@ rel_intensities = [(1, 2), None, (1, 1)]
 rel_intensities = [None, (0, 1/2), (1, 1)]</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.add_gaussian">
-<span class="sig-name descname"><span class="pre">add_gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_position</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.add_gaussian" title="Permalink to this definition">#</a></dt>
-<dd><p>Finds the index of the given x-position, and adds a peak to build later</p>
-<p>x_postion: float - x_position to add peak later</p>
 </dd></dl>
 
 <dl class="py method">
@@ -667,18 +672,6 @@ auto_find_peaks: boolean - if True, self.num_peaks are automatically identified.
 <dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.get_centroids_ascending">
 <span class="sig-name descname"><span class="pre">get_centroids_ascending</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.get_centroids_ascending" title="Permalink to this definition">#</a></dt>
 <dd><p>Returns centroids in increasing x value</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.read_hdf">
-<span class="sig-name descname"><span class="pre">read_hdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.read_hdf" title="Permalink to this definition">#</a></dt>
-<dd><p>reads fit data from header of the hdf5 dataset to save runtime</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="euv_fitting.calibrate.utils.MultiPeakGaussian.to_hdf">
-<span class="sig-name descname"><span class="pre">to_hdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.to_hdf" title="Permalink to this definition">#</a></dt>
-<dd><p>stores fit data in header of the hdf5 dataset for later use</p>
 </dd></dl>
 
 </dd></dl>
@@ -734,7 +727,7 @@ auto_find_peaks: boolean - if True, self.num_peaks are automatically identified.
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-to-peak-fitting">Introduction to Peak Fitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multibatchgaussian">MultiBatchGaussian</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multibatchgaussian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiBatchGaussian</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.eval"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian.eval()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiBatchGaussian.fit"><code class="docutils literal notranslate"><span class="pre">MultiBatchGaussian.fit()</span></code></a></li>
@@ -746,16 +739,13 @@ auto_find_peaks: boolean - if True, self.num_peaks are automatically identified.
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multipeakgaussian">MultiPeakGaussian</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multipeakgaussian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiPeakGaussian</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.add_composite"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.add_composite()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.add_gaussian"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.add_gaussian()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.build_composites"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.build_composites()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.build_gaussians"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.build_gaussians()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.fit"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.fit()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.get_centroids_ascending"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.get_centroids_ascending()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.read_hdf"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.read_hdf()</span></code></a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.utils.MultiPeakGaussian.to_hdf"><code class="docutils literal notranslate"><span class="pre">MultiPeakGaussian.to_hdf()</span></code></a></li>
 </ul>
 </li>
 </ul>

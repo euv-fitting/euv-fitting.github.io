@@ -104,7 +104,7 @@ calibration coefficient.
 
 
 Currently, support is included for calibrations based on Neon, Background, and Argon spectra.
-To calibrate this neon spectra, we first create a :class:`~euv_fitting.calibrate.calibrate.Distance_Calibrator`
+To calibrate this neon spectra, we first create a :class:`~euv_fitting.calibrate.calibrators.Distance_Calibrator`
 object, specifying the number of peaks to fit and the element of the spectra.
 
 .. jupyter-execute::

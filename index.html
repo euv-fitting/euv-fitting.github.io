@@ -147,6 +147,13 @@
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="uncertainty.html">
+                        Uncertainties
+                      </a>
+                    </li>
+                
   </ul>
 </nav></div>
       
@@ -244,6 +251,13 @@ document.write(`
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="uncertainty.html">
+                        Uncertainties
+                      </a>
+                    </li>
+                
   </ul>
 </nav></div>
         
@@ -297,8 +311,7 @@ document.write(`
 Spectra. It is written entirely in Python, and contains classes for opening,
 processing, and plotting spectra from the NIST EUV Spectrometer. Euv_fitting relies
 heavily on <a class="reference external" href="https://lmfit.github.io/lmfit-py/index.html">lmfit</a>, and has functionality including:</p>
-<blockquote>
-<div><ul class="simple">
+<ul class="simple">
 <li><p>Processing of binary .SPE files into NumPy arrays and metadata via
 <code class="xref py py-class docutils literal notranslate"><span class="pre">SpeReader</span></code> objects. The cosmic rays present in these
 files can then be removed using a <code class="xref py py-class docutils literal notranslate"><span class="pre">CosmicRayFilter</span></code> object.</p></li>
@@ -312,11 +325,13 @@ of detected peaks and manually input peak locations that are missed.</p></li>
 <li><p>Identification of calibration lines using <a class="reference internal" href="calibration.html#euv_fitting.calibrate.calibrators.Distance_Calibrator" title="euv_fitting.calibrate.calibrators.Distance_Calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Distance_Calibrator</span></code></a>
 objects. Distance_Calibrators can also convert collections of identified calibration lines
 into the calibration coefficients and their uncertainties. Systematic
-uncertainties present in the spectra are also estimated via the reduced chi-squared.</p></li>
+uncertainties present in the spectra are also estimated via the reduced chi-squared.</p>
+<ul>
 <li><p>Iterative intensity calibration of EUV spectra based on Poisson statistics
 and the response function of the CCD camera.</p></li>
 </ul>
-</div></blockquote>
+</li>
+</ul>
 <div class="toctree-wrapper compound">
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
@@ -327,14 +342,20 @@ and the response function of the CCD camera.</p></li>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="peakfitting.html">Peak Fitters</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="peakfitting.html#introduction-to-peak-fitting">Introduction to Peak Fitting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="peakfitting.html#multibatchgaussian">MultiBatchGaussian</a></li>
-<li class="toctree-l2"><a class="reference internal" href="peakfitting.html#multipeakgaussian">MultiPeakGaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="peakfitting.html#multibatchgaussian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiBatchGaussian</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="peakfitting.html#multipeakgaussian"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultiPeakGaussian</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="calibration.html">Calibrators</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="calibration.html#calibration-process">Calibration Process</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calibration.html#calibrator">Calibrator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="calibration.html#distance-calibrator">Distance Calibrator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html#calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Calibrator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="calibration.html#distance-calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Distance_Calibrator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="uncertainty.html">Uncertainties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="uncertainty.html#types-of-uncertainty">Types of Uncertainty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uncertainty.html#examples-and-best-practices">Examples and Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uncertainty.html#estimation-of-systematic-uncertainty">Estimation of Systematic Uncertainty</a></li>
 </ul>
 </li>
 </ul>

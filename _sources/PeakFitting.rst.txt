@@ -1,5 +1,7 @@
 .. _peakfitting_Chapter:
 
+.. module:: euv_fitting.calibrate.utils
+
 
 
 =================================
@@ -108,8 +110,8 @@ the next page to learn about the calibration process.
 
 
 
-MultiBatchGaussian
-==================
+:class:`MultiBatchGaussian`
+==============================
 
 MultiBatchGaussian leverages the fast drop-off of the gaussian function to
 reduce runtime by fitting isolated gaussians separately. If several gaussians are close
@@ -117,16 +119,16 @@ enough to affect each other (within ~12 channels) they are grouped into a **batc
 Each batch of gaussians is then fit with the appropriate number of gaussians, as well
 as a constant or linear background.
 
-.. autoclass:: euv_fitting.calibrate.utils.MultiBatchGaussian
-   :members:
+.. autoclass:: MultiBatchGaussian
+    :members:
 
-MultiPeakGaussian
-=================
+:class:`MultiPeakGaussian`
+=============================
 
-  MultiPeakGaussian fits the entire spectrum simultaneously, and is similar to treating
-  the whole spectra as one large batch. This has the benefit of not needing an initial
-  guess of the gaussian's :math:`\sigma`, but does substantially increase the runtime/
-  instability of the fitting process.
+MultiPeakGaussian fits the entire spectrum simultaneously, and is similar to treating
+the whole spectra as one large batch. This has the benefit of not needing an initial
+guess of the gaussian's :math:`\sigma`, but does substantially increase the runtime/
+instability of the fitting process.
 
-.. autoclass:: euv_fitting.calibrate.utils.MultiPeakGaussian
-   :members:
+.. autoclass:: MultiPeakGaussian
+    :members:

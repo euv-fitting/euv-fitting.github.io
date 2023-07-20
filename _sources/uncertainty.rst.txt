@@ -1,0 +1,263 @@
+.. _uncertainty_Chapter:
+
+============================
+Uncertainties
+============================
+
+No calibration is complete without a thorough understanding of the uncertainty in
+your results and where that uncertainty comes from. This section is a review
+of the types of the uncertainty present in calibrations, how to access them,
+and common mistakes made when calculating uncertainties.
+
+Types of Uncertainty
+====================
+
+Channel Uncertainty (Centroid Uncertainty)
+------------------------------------------
+Channel uncertainty comes from the inherent statistical uncertainty in the peak
+fitting process. A peak with a center at channel 1000 looks almost identical to
+a peak with a center at channel 1000.1, especially if you only saw a few photons
+from that peak. A channel uncertainty can be converted to a wavelength uncertainty
+using the function
+
+.. math::
+
+  u_{x,nm} = f_{cal}'(x) * u_{x,ch}
+
+Where :math:`u_{x,nm}` is the uncertainty from peak fitting in nm, :math:`u_{x,ch}`
+is the uncertainty in channels, :math:`f_{cal}(x)'` is the derivative of the calibration
+function **evaluated at x**.
+
+As an example, consider you know the calibration function is:
+
+.. math::
+
+  f_{cal}(x) = 4 nm + 1 * 10^{-6} \frac{nm}{{ch}^2} x ^ 2
+
+Which has the derivative
+
+.. math::
+
+  f_{cal}(x) = 2 * {10^{-6}} \frac{nm}{{ch}^2} x
+
+A line at channel 500 with a channel uncertainty of +/- 1 nm would have an effective
+wavelength uncertainty of:
+
+.. math::
+
+  u_{x,nm} = 2 * {10^ {-6}} \frac{nm}{{ch}^2} 500 ch * 1 ch
+
+  u_{x,nm} = 0.001 nm.
+
+Literature Wavelength Uncertainty
+---------------------------------
+
+The calibration lines are not known exactly, and come with uncertainty values attached as well.
+We do not have to calculate these, as they are given in other publications.
+
+
+Systematic Uncertainty
+----------------------
+
+The calibration drifts over time due to thermal expansion of the diffraction grating, small
+movements of the CCD camera, and other factors. Systematic uncertainty attempts
+to capture the errors in calibrations that do come from statistical sources.
+For more information of how systematic uncertainty is estimated, see the section
+on :ref:`uncertainty:estimation of systematic uncertainty`
+
+
+Calibration Uncertainty
+-----------------------
+
+Once a calibration has been completed, a scientist needs to know not only what
+the wavelength is at a certain point, but also *how confident they can be in that wavelength*.
+The calibration uncertainty represents the +/- at a predicted wavelength, and changes
+as channel number changes. In areas where you have many calibration lines, the
+calibration uncertainty is generally smaller. If there are no close calibration lines,
+you can expect higher calibration uncertainties.
+
+To obtain the 1 sigma (close to 68% confidence band) calibration uncertainties, use the
+:func:`~euv_fitting.calibrate.calibrators.Calibrator.confidence_bands` method after
+fitting has been completed.
+
+.. code-block:: python
+
+    cb = calibrator.confidence_bands(n_sigma = 1)
+
+    #or
+
+    cb = calibrator.confidence_bands(n_sigma = 1)
+    cb = calibrator.cb
+
+    cb.shape == (2048,)
+
+`cb` will be an array of the calibration uncertainty at each channel.
+
+
+
+Examples and Best Practices
+===========================
+
+One common task for users of euv_fitting is creating a calibration, applying it
+to another spectra, and then extracting the wavelength and wavelength uncertainty of peaks
+in that spectra. This example is a template for completing that process and mentions
+some mistakes to avoid along the way.
+
+First, create a calibration from a Neon and Background file. For more information,
+see the :ref:`calibration:calibration process` section.
+
+
+.. jupyter-execute::
+
+    from euv_fitting.calibrate.utils import SpeReader, CosmicRayFilter
+    from euv_fitting.calibrate.calibrators import Distance_Calibrator
+
+    CRF = CosmicRayFilter()
+
+    Ne_spe = SpeReader('./example_data/Example_Neon.SPE')
+    Bkg_spe = SpeReader('./example_data/Example_Background.SPE')
+
+    Ne_img = CRF.apply(Ne_spe.load_img())
+    Bkg_img = CRF.apply(Bkg_spe.load_img())
+
+    Ne_cal = Distance_Calibrator(Ne_img, 'Ne', num_peaks = 25) #specify element and #peaks
+    Bkg_cal = Distance_Calibrator(Bkg_img, 'Ba', num_peaks = 25) #specify element and #peaks
+
+    Ne_cal.calibrate()
+    Bkg_cal.calibrate()
+
+    Ne_cal.join([Bkg_cal])
+
+    print('Total Solution Array')
+    print(Ne_cal.solution_arr)
+
+    Ne_cal.fit()
+    Ne_cal.plot()
+    Ne_cal.residual_plot()
+    Ne_cal.print_info()
+
+
+Immediately, we can identify the:
+
+* channel uncertainty (fourth column of the solution array)
+
+* literature wavelength uncertainty (second column of the solution array)
+
+* systemtatic uncertainty (given in the print out)
+
+
+
+.. jupyter-execute::
+
+    from euv_fitting.calibrate.utils import MultiBatchGaussian
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    #apply the calibration function to our channels to get wavelengths
+    channels = np.linspace(0, 2047, 2048)
+    wavelengths = Ne_cal.f3(channels, *Ne_cal.popt)
+
+
+    Ir_spe = SpeReader('./example_data/Example_Neon.SPE')
+    Ir_img = CRF.apply(Ir_spe.load_img())
+
+    #create multibatchgaussian with wavelength on the x-axis
+    Ir_multi = MultiBatchGaussian(Ir_img, xs = wavelengths, num_peaks = 15)
+
+    Ir_multi.fit()
+
+    f, ax = plt.subplots()
+    Ir_multi.plot_fit(ax = ax)
+    ax.set_xlim([8, 10])
+
+    centroids = Ir_multi.get_centroids_ascending()
+    print(centroids)
+
+Note that because we gave the wavelengths as the x-values when we created the
+MultiBatchGaussian, centroids (and their centroid uncertainties) are already
+in nm. The next step is to calculate the **total uncertainty** for each centroid.
+The total uncertainty has three parts
+
+1. :math:`u_{x,nm}`, the centroid uncertainty
+2. :math:`u_{cal}`, the calibration uncertainty
+3. :math:`u_{sys}`, the systematic uncertainty.
+
+To calculate the total uncertainty, combine all parts in quadrature:
+
+.. math::
+
+    u_{tot} = \sqrt{{u_x,nm} ^ 2 + {u_cal} ^ 2 + {u_sys} ^ 2}
+
+:math:`u_{sys}` is easily gotten through the `cal.systematic_uncertainty`
+
+.. jupyter-execute::
+
+    sys_unc = Ne_cal.systematic_uncertainty
+
+The calibration uncertainty can be found by linearly interpolating the confidence band array.
+For example, if the calibration uncertainty at channel 1000 is 0.001 nm, but is 0.0012 nm at channel 1001,
+then a peak with a center at channel 1000.5 would have calibration uncertainty 0.0011 nm.
+Note that the calibration uncertainty generally changes slowly.
+
+.. jupyter-execute::
+
+    #the calibration uncertainty changes with wavelength, so we need to calculate it
+    #for each centroid
+
+
+    calibration_unc = [np.interp(centroid, wavelengths, Ne_cal.confidence_bands(n_sigma = 1)) \
+                for centroid in centroids[:, 0]]
+
+
+Finally, we can calculate the total uncertainty for each centroid using the formula above:
+
+.. jupyter-execute::
+
+    for centroid, centroid_uncertainty, cal_unc in zip(centroids[:, 0], centroids[:, 1], calibration_unc):
+        total_unc = np.sqrt(centroid_uncertainty ** 2 + cal_unc ** 2 + sys_unc ** 2)
+
+        print(f'{centroid:4.4f} +/- {total_unc:5.4f}')
+
+These are the values that should be published in a paper. They take into account
+not only the fit uncertainty, but also the calibration and systematic uncertainties.
+
+
+Estimation of Systematic Uncertainty
+=====================================
+
+One measure of goodness-of-fit is the reduced chi-squared (A.K.A. :math:`\chi^2_{\nu}`),
+defined as:
+
+.. math::
+
+  \chi^2_{\nu} = \frac{1}{n - m} \sum{\frac{(y_{observed} - y_{calculated})^2}{\sigma ^ 2}}
+
+If there are no systematic errors in your experiment, then :math:`\chi^2_{\nu}`
+should be close to 1. Values significantly less than 1 suggest you are *overestimating*
+your uncertainties, while values greater than 1 suggest you are *underestimating*
+your uncertainties.
+
+To reduce the chance of publishing over confident uncertainties, euv_fitting adds
+a systematic uncertainty in quadrature with the channel and literature uncertainties
+if the :math:`\chi^2_{\nu}` is greather than 1. The systematic uncertainty is slowly increased
+until :math:`\chi^2_{\nu}` equals 1, as shown below.
+
+
+.. jupyter-execute::
+    :hide-code:
+
+    sys_test = np.linspace(0, 0.005, 25)
+
+    res = []
+    for sys in sys_test:
+      chi_square = Ne_cal.eval_chi_square(sys, Ne_cal.f3, target = 0)
+      res.append(chi_square)
+
+
+    plt.plot(sys_test, res, 'xb')
+    plt.hlines(1, np.min(sys_test), np.max(sys_test), 'r', '--')
+    plt.xlabel('Systematic Uncertainty')
+    plt.ylabel('Reduced Chi Squared')
+    plt.title('Search for Best Systematic Uncertainty')
+    plt.show()

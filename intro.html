@@ -149,6 +149,13 @@
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="uncertainty.html">
+                        Uncertainties
+                      </a>
+                    </li>
+                
   </ul>
 </nav></div>
       
@@ -243,6 +250,13 @@ document.write(`
                     <li class="nav-item">
                       <a class="nav-link nav-internal" href="calibration.html">
                         Calibrators
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="uncertainty.html">
+                        Uncertainties
                       </a>
                     </li>
                 
@@ -426,7 +440,7 @@ that channel number, and <span class="math notranslate nohighlight">\(k_i\)</spa
 the calibration amounts to determining the values and uncertainties of each
 calibration coefficient.</p>
 <p>Currently, support is included for calibrations based on Neon, Background, and Argon spectra.
-To calibrate this neon spectra, we first create a <code class="xref py py-class docutils literal notranslate"><span class="pre">Distance_Calibrator</span></code>
+To calibrate this neon spectra, we first create a <a class="reference internal" href="calibration.html#euv_fitting.calibrate.calibrators.Distance_Calibrator" title="euv_fitting.calibrate.calibrators.Distance_Calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Distance_Calibrator</span></code></a>
 object, specifying the number of peaks to fit and the element of the spectra.</p>
 <div class="jupyter_cell jupyter_container docutils container">
 <div class="cell_input code_cell docutils container">
@@ -486,7 +500,7 @@ K3 = -2.7454680289512726e-12±2.386810238057546e-11
 Highest/Average channel uncertainty 4.93e-04 / 2.63e-04
 Highest/Average wavelength uncertainty 1.80e-03 / 7.06e-04
 Systematic Uncertainty: 0
-Chi-square: 0.9989862473518202
+Unadjusted Chi-square: 0.9989862473518202
 </pre></div>
 </div>
 </div>

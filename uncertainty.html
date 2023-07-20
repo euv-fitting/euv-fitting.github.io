@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Uncertainties &#8212; euv_fitting [0.2.0] documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'uncertainty';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Calibrators" href="calibration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">euv_fitting [0.2.0] documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="intro.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="peakfitting.html">
+                        Peak Fitters
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="calibration.html">
+                        Calibrators
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Uncertainties
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="intro.html">
+                        Introduction
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="peakfitting.html">
+                        Peak Fitters
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="calibration.html">
+                        Calibrators
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
+                        Uncertainties
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Uncertainties</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="uncertainties">
+<span id="uncertainty-chapter"></span><h1>Uncertainties<a class="headerlink" href="#uncertainties" title="Permalink to this heading">#</a></h1>
+<p>No calibration is complete without a thorough understanding of the uncertainty in
+your results and where that uncertainty comes from. This section is a review
+of the types of the uncertainty present in calibrations, how to access them,
+and common mistakes made when calculating uncertainties.</p>
+<section id="types-of-uncertainty">
+<h2>Types of Uncertainty<a class="headerlink" href="#types-of-uncertainty" title="Permalink to this heading">#</a></h2>
+<section id="channel-uncertainty-centroid-uncertainty">
+<h3>Channel Uncertainty (Centroid Uncertainty)<a class="headerlink" href="#channel-uncertainty-centroid-uncertainty" title="Permalink to this heading">#</a></h3>
+<p>Channel uncertainty comes from the inherent statistical uncertainty in the peak
+fitting process. A peak with a center at channel 1000 looks almost identical to
+a peak with a center at channel 1000.1, especially if you only saw a few photons
+from that peak. A channel uncertainty can be converted to a wavelength uncertainty
+using the function</p>
+<div class="math notranslate nohighlight">
+\[u_{x,nm} = f_{cal}'(x) * u_{x,ch}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(u_{x,nm}\)</span> is the uncertainty from peak fitting in nm, <span class="math notranslate nohighlight">\(u_{x,ch}\)</span>
+is the uncertainty in channels, <span class="math notranslate nohighlight">\(f_{cal}(x)'\)</span> is the derivative of the calibration
+function <strong>evaluated at x</strong>.</p>
+<p>As an example, consider you know the calibration function is:</p>
+<div class="math notranslate nohighlight">
+\[f_{cal}(x) = 4 nm + 1 * 10^{-6} \frac{nm}{{ch}^2} x ^ 2\]</div>
+<p>Which has the derivative</p>
+<div class="math notranslate nohighlight">
+\[f_{cal}(x) = 2 * {10^{-6}} \frac{nm}{{ch}^2} x\]</div>
+<p>A line at channel 500 with a channel uncertainty of +/- 1 nm would have an effective
+wavelength uncertainty of:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}u_{x,nm} = 2 * {10^ {-6}} \frac{nm}{{ch}^2} 500 ch * 1 ch\\u_{x,nm} = 0.001 nm.\end{aligned}\end{align} \]</div>
+</section>
+<section id="literature-wavelength-uncertainty">
+<h3>Literature Wavelength Uncertainty<a class="headerlink" href="#literature-wavelength-uncertainty" title="Permalink to this heading">#</a></h3>
+<p>The calibration lines are not known exactly, and come with uncertainty values attached as well.
+We do not have to calculate these, as they are given in other publications.</p>
+</section>
+<section id="systematic-uncertainty">
+<h3>Systematic Uncertainty<a class="headerlink" href="#systematic-uncertainty" title="Permalink to this heading">#</a></h3>
+<p>The calibration drifts over time due to thermal expansion of the grating, small
+movements of the CCD camera, and other factors. Systematic uncertainty attempts
+to capture the errors in calibrations that do come from statistical sources.
+For more information of how systematic uncertainty is estimated, see the section
+on <a class="reference internal" href="#estimation-of-systematic-uncertainty"><span class="std std-ref">Estimation of Systematic Uncertainty</span></a></p>
+</section>
+<section id="calibration-uncertainty">
+<h3>Calibration Uncertainty<a class="headerlink" href="#calibration-uncertainty" title="Permalink to this heading">#</a></h3>
+<p>Once a calibration has been completed, a scientist needs to know not only what
+the wavelength is at a certain point, but also <em>how confident they can be in that wavelength</em>.
+The calibration uncertainty represents the +/- at a predicted wavelength, and changes
+as channel number changes. In areas where you have many calibration lines, the
+calibration uncertainty is generally smaller. If there are no close calibration lines,
+you can expect higher calibration uncertainties.</p>
+<p>To obtain the 1 sigma (close to 68% confidence band) calibration uncertainties, use the
+<a class="reference internal" href="calibration.html#euv_fitting.calibrate.calibrators.Calibrator.confidence_bands" title="euv_fitting.calibrate.calibrators.Calibrator.confidence_bands"><code class="xref py py-func docutils literal notranslate"><span class="pre">confidence_bands()</span></code></a> method after
+fitting has been completed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cb</span> <span class="o">=</span> <span class="n">calibrator</span><span class="o">.</span><span class="n">confidence_bands</span><span class="p">(</span><span class="n">n_sigma</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#or</span>
+
+<span class="n">cb</span> <span class="o">=</span> <span class="n">calibrator</span><span class="o">.</span><span class="n">confidence_bands</span><span class="p">(</span><span class="n">n_sigma</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">calibrator</span><span class="o">.</span><span class="n">cb</span>
+
+<span class="n">cb</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2048</span><span class="p">,)</span>
+</pre></div>
+</div>
+<p><cite>cb</cite> will be an array of the calibration uncertainty at each channel.</p>
+</section>
+</section>
+<section id="examples-and-best-practices">
+<h2>Examples and Best Practices<a class="headerlink" href="#examples-and-best-practices" title="Permalink to this heading">#</a></h2>
+<p>One common task for users of euv_fitting is creating a calibration, applying it
+to another spectra, and then extracting the wavelength and wavelength uncertainty of peaks
+in that spectra. This example is a template for completing that process and mentions
+some mistakes to avoid along the way.</p>
+<p>First, create a calibration from a Neon and Background file. For more information,
+see the <a class="reference internal" href="calibration.html#calibration-process"><span class="std std-ref">Calibration Process</span></a> section.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">euv_fitting.calibrate.utils</span> <span class="kn">import</span> <span class="n">SpeReader</span><span class="p">,</span> <span class="n">CosmicRayFilter</span>
+<span class="kn">from</span> <span class="nn">euv_fitting.calibrate.calibrators</span> <span class="kn">import</span> <span class="n">Distance_Calibrator</span>
+
+<span class="n">CRF</span> <span class="o">=</span> <span class="n">CosmicRayFilter</span><span class="p">()</span>
+
+<span class="n">Ne_spe</span> <span class="o">=</span> <span class="n">SpeReader</span><span class="p">(</span><span class="s1">&#39;./example_data/Example_Neon.SPE&#39;</span><span class="p">)</span>
+<span class="n">Bkg_spe</span> <span class="o">=</span> <span class="n">SpeReader</span><span class="p">(</span><span class="s1">&#39;./example_data/Example_Background.SPE&#39;</span><span class="p">)</span>
+
+<span class="n">Ne_img</span> <span class="o">=</span> <span class="n">CRF</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Ne_spe</span><span class="o">.</span><span class="n">load_img</span><span class="p">())</span>
+<span class="n">Bkg_img</span> <span class="o">=</span> <span class="n">CRF</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Bkg_spe</span><span class="o">.</span><span class="n">load_img</span><span class="p">())</span>
+
+<span class="n">Ne_cal</span> <span class="o">=</span> <span class="n">Distance_Calibrator</span><span class="p">(</span><span class="n">Ne_img</span><span class="p">,</span> <span class="s1">&#39;Ne&#39;</span><span class="p">,</span> <span class="n">num_peaks</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span> <span class="c1">#specify element and #peaks</span>
+<span class="n">Bkg_cal</span> <span class="o">=</span> <span class="n">Distance_Calibrator</span><span class="p">(</span><span class="n">Bkg_img</span><span class="p">,</span> <span class="s1">&#39;Ba&#39;</span><span class="p">,</span> <span class="n">num_peaks</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span> <span class="c1">#specify element and #peaks</span>
+
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">calibrate</span><span class="p">()</span>
+<span class="n">Bkg_cal</span><span class="o">.</span><span class="n">calibrate</span><span class="p">()</span>
+
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">Bkg_cal</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total Solution Array&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Ne_cal</span><span class="o">.</span><span class="n">solution_arr</span><span class="p">)</span>
+
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">residual_plot</span><span class="p">()</span>
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">print_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>selecting best peaks
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>selecting best peaks
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Total Solution Array
+[[8.80929000e+00 1.40000000e-04 7.62421231e+02 2.58781802e-02]
+ [9.75020000e+00 4.00000000e-04 8.90567351e+02 3.55102613e-02]
+ [1.11136000e+01 1.80000000e-03 1.06748262e+03 3.36749072e-02]
+ [1.16691000e+01 5.00000000e-04 1.13674959e+03 2.73318275e-02]
+ [1.27676000e+01 7.00000000e-04 1.26986371e+03 1.56628562e-02]
+ [1.43314000e+01 7.00000000e-04 1.45125753e+03 2.30675110e-02]
+ [1.47138000e+01 7.00000000e-04 1.49425996e+03 4.19253220e-02]
+ [1.76186000e+01 2.80000000e-04 1.80726417e+03 2.92112055e-02]
+ [1.95004000e+01 8.00000000e-04 1.99888699e+03 2.73615248e-02]
+ [5.21540000e+00 2.50000000e-03 2.09996430e+02 6.03119420e-02]
+ [5.67700000e+00 1.00000000e-03 2.88094113e+02 4.50670806e-02]
+ [5.98460000e+00 2.00000000e-04 3.38510633e+02 7.24005140e-02]
+ [6.16220000e+00 2.50000000e-03 3.67006855e+02 9.25922924e-02]
+ [6.28800000e+00 3.00000000e-03 3.88270099e+02 5.29248232e-02]
+ [6.66230000e+00 7.00000000e-04 4.46800576e+02 3.19296907e-02]
+ [1.17686000e+01 1.00000000e-03 1.14876942e+03 3.39887742e-02]
+ [1.23920000e+01 3.00000000e-03 1.22513586e+03 2.31265415e-02]
+ [1.25818000e+01 5.00000000e-03 1.24772767e+03 4.11585546e-02]
+ [1.29930000e+01 3.00000000e-03 1.29716876e+03 3.89691709e-02]
+ [1.33246000e+01 1.40000000e-03 1.33537973e+03 5.23796173e-02]
+ [1.50101000e+01 5.00000000e-04 1.52770709e+03 3.52752553e-02]
+ [1.72169000e+01 3.00000000e-04 1.76518033e+03 8.77637881e-02]
+ [1.73081000e+01 5.00000000e-04 1.77455803e+03 1.19250428e-01]]
+</pre></div>
+</div>
+<img alt="_images/uncertainty_0_3.png" src="_images/uncertainty_0_3.png" />
+<img alt="_images/uncertainty_0_4.png" src="_images/uncertainty_0_4.png" />
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>K0 = 4.051760979290335±0.003037473135061028
+K1 = 0.005274290727274932±1.1718352123140706e-05
+K2 = 1.2887169025469727e-06±1.2352525685988656e-08
+K3 = -2.9330230066183045e-11±3.842164006338311e-12
+Highest/Average channel uncertainty 1.14e-03 / 3.63e-04
+Highest/Average wavelength uncertainty 5.00e-03 / 1.36e-03
+Systematic Uncertainty: 0.0010382812499999975
+Unadjusted Chi-square: 2.41881744438093
+</pre></div>
+</div>
+</div>
+</div>
+<p>Immediately, we can identify the:</p>
+<ul class="simple">
+<li><p>channel uncertainty (fourth column of the solution array)</p></li>
+<li><p>literature wavelength uncertainty (second column of the solution array)</p></li>
+<li><p>systemtatic uncertainty (given in the print out)</p></li>
+</ul>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">euv_fitting.calibrate.utils</span> <span class="kn">import</span> <span class="n">MultiBatchGaussian</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1">#apply the calibration function to our channels to get wavelengths</span>
+<span class="n">channels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2047</span><span class="p">,</span> <span class="mi">2048</span><span class="p">)</span>
+<span class="n">wavelengths</span> <span class="o">=</span> <span class="n">Ne_cal</span><span class="o">.</span><span class="n">f3</span><span class="p">(</span><span class="n">channels</span><span class="p">,</span> <span class="o">*</span><span class="n">Ne_cal</span><span class="o">.</span><span class="n">popt</span><span class="p">)</span>
+
+
+<span class="n">Ir_spe</span> <span class="o">=</span> <span class="n">SpeReader</span><span class="p">(</span><span class="s1">&#39;./example_data/Example_Neon.SPE&#39;</span><span class="p">)</span>
+<span class="n">Ir_img</span> <span class="o">=</span> <span class="n">CRF</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Ir_spe</span><span class="o">.</span><span class="n">load_img</span><span class="p">())</span>
+
+<span class="c1">#create multibatchgaussian with wavelength on the x-axis</span>
+<span class="n">Ir_multi</span> <span class="o">=</span> <span class="n">MultiBatchGaussian</span><span class="p">(</span><span class="n">Ir_img</span><span class="p">,</span> <span class="n">xs</span> <span class="o">=</span> <span class="n">wavelengths</span><span class="p">,</span> <span class="n">num_peaks</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+
+<span class="n">Ir_multi</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">Ir_multi</span><span class="o">.</span><span class="n">plot_fit</span><span class="p">(</span><span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+
+<span class="n">centroids</span> <span class="o">=</span> <span class="n">Ir_multi</span><span class="o">.</span><span class="n">get_centroids_ascending</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">centroids</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[[8.80910866e+00 1.68642086e-04]
+ [9.75019873e+00 2.72684748e-04]
+ [9.82194180e+00 4.04853965e-04]
+ [1.06157482e+01 2.49820935e-04]
+ [1.11146555e+01 3.14898435e-04]
+ [1.16694731e+01 2.06514901e-04]
+ [1.22649749e+01 7.09158037e-04]
+ [1.27676838e+01 3.55130947e-04]
+ [1.30307583e+01 1.15214130e-03]
+ [1.42644909e+01 1.05170271e-03]
+ [1.43306900e+01 1.94775210e-04]
+ [1.47131903e+01 1.07046281e-03]
+ [1.72600294e+01 6.53520247e-04]
+ [1.76197812e+01 3.37757159e-04]
+ [1.95091402e+01 4.71991992e-04]]
+</pre></div>
+</div>
+<img alt="_images/uncertainty_1_1.png" src="_images/uncertainty_1_1.png" />
+</div>
+</div>
+<p>Note that because we gave the wavelengths as the x-values when we created the
+MultiBatchGaussian, centroids (and their centroid uncertainties) are already
+in nm. The next step is to calculate the <strong>total uncertainty</strong> for each centroid.
+The total uncertainty has three parts</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(u_{x,nm}\)</span>, the centroid uncertainty</p></li>
+<li><p><span class="math notranslate nohighlight">\(u_{cal}\)</span>, the calibration uncertainty</p></li>
+<li><p><span class="math notranslate nohighlight">\(u_{sys}\)</span>, the systematic uncertainty.</p></li>
+</ol>
+<p>To calculate the total uncertainty, combine all parts in quadrature:</p>
+<div class="math notranslate nohighlight">
+\[u_{tot} = \sqrt{{u_x,nm} ^ 2 + {u_cal} ^ 2 + {u_sys} ^ 2}\]</div>
+<p><span class="math notranslate nohighlight">\(u_{sys}\)</span> is easily gotten through the <cite>cal.systematic_uncertainty</cite></p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sys_unc</span> <span class="o">=</span> <span class="n">Ne_cal</span><span class="o">.</span><span class="n">systematic_uncertainty</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>The calibration uncertainty can be found by linearly interpolating the confidence band array.
+For example, if the calibration uncertainty at channel 1000 is 0.001 nm, but is 0.0012 nm at channel 1001,
+then a peak with a center at channel 1000.5 would have calibration uncertainty 0.0011 nm.
+Note that the calibration uncertainty generally changes slowly.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#the calibration uncertainty changes with wavelength, so we need to calculate it</span>
+<span class="c1">#for each centroid</span>
+
+
+<span class="n">calibration_unc</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">centroid</span><span class="p">,</span> <span class="n">wavelengths</span><span class="p">,</span> <span class="n">Ne_cal</span><span class="o">.</span><span class="n">confidence_bands</span><span class="p">(</span><span class="n">n_sigma</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> \
+            <span class="k">for</span> <span class="n">centroid</span> <span class="ow">in</span> <span class="n">centroids</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<p>Finally, we can calculate the total uncertainty for each centroid using the formula above:</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">centroid</span><span class="p">,</span> <span class="n">centroid_uncertainty</span><span class="p">,</span> <span class="n">cal_unc</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">centroids</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centroids</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">calibration_unc</span><span class="p">):</span>
+    <span class="n">total_unc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">centroid_uncertainty</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">cal_unc</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">sys_unc</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">centroid</span><span class="si">:</span><span class="s1">4.4f</span><span class="si">}</span><span class="s1"> +/- </span><span class="si">{</span><span class="n">total_unc</span><span class="si">:</span><span class="s1">5.4f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>8.8091 +/- 0.0013
+9.7502 +/- 0.0012
+9.8219 +/- 0.0013
+10.6157 +/- 0.0012
+11.1147 +/- 0.0012
+11.6695 +/- 0.0012
+12.2650 +/- 0.0013
+12.7677 +/- 0.0012
+13.0308 +/- 0.0016
+14.2645 +/- 0.0016
+14.3307 +/- 0.0012
+14.7132 +/- 0.0016
+17.2600 +/- 0.0014
+17.6198 +/- 0.0014
+19.5091 +/- 0.0023
+</pre></div>
+</div>
+</div>
+</div>
+<p>These are the values that should be published in a paper. They take into account
+not only the fit uncertainty, but also the calibration and systematic uncertainties.</p>
+</section>
+<section id="estimation-of-systematic-uncertainty">
+<h2>Estimation of Systematic Uncertainty<a class="headerlink" href="#estimation-of-systematic-uncertainty" title="Permalink to this heading">#</a></h2>
+<p>One measure of goodness-of-fit is the reduced chi-squared (A.K.A. <span class="math notranslate nohighlight">\(\chi^2_{\nu}\)</span>),
+defined as:</p>
+<div class="math notranslate nohighlight">
+\[\chi^2_{\nu} = \frac{1}{n - m} \sum{\frac{(y_{observed} - y_{calculated})^2}{\sigma ^ 2}}\]</div>
+<p>If there are no systematic errors in your experiment, then <span class="math notranslate nohighlight">\(\chi^2_{\nu}\)</span>
+should be close to 1. Values significantly less than 1 suggest you are <em>overestimating</em>
+your uncertainties, while values greater than 1 suggest you are <em>underestimating</em>
+your uncertainties.</p>
+<p>To reduce the chance of publishing over confident uncertainties, euv_fitting adds
+a systematic uncertainty in quadrature with the channel and literature uncertainties
+if the <span class="math notranslate nohighlight">\(\chi^2_{\nu}\)</span> is greather than 1. The systematic uncertainty is slowly increased
+until <span class="math notranslate nohighlight">\(\chi^2_{\nu}\)</span> equals 1, as shown below.</p>
+<div class="jupyter_cell docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/uncertainty_5_0.png" src="_images/uncertainty_5_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="calibration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Calibrators</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-of-uncertainty">Types of Uncertainty</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#channel-uncertainty-centroid-uncertainty">Channel Uncertainty (Centroid Uncertainty)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#literature-wavelength-uncertainty">Literature Wavelength Uncertainty</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#systematic-uncertainty">Systematic Uncertainty</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-uncertainty">Calibration Uncertainty</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-and-best-practices">Examples and Best Practices</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-of-systematic-uncertainty">Estimation of Systematic Uncertainty</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+  <div class="tocsection sourcelink">
+    <a href="_sources/uncertainty.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2023 - Hunter Staiger.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -45,6 +45,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'calibration';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Uncertainties" href="uncertainty.html" />
     <link rel="prev" title="Peak Fitters" href="peakfitting.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -147,6 +148,13 @@
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="uncertainty.html">
+                        Uncertainties
+                      </a>
+                    </li>
+                
   </ul>
 </nav></div>
       
@@ -244,6 +252,13 @@ document.write(`
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="uncertainty.html">
+                        Uncertainties
+                      </a>
+                    </li>
+                
   </ul>
 </nav></div>
         
@@ -317,19 +332,185 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="calibrators">
-<span id="calibration-chapter"></span><h1>Calibrators<a class="headerlink" href="#calibrators" title="Permalink to this heading">#</a></h1>
+  <span class="target" id="module-euv_fitting.calibrate.calibrators"><span id="calibration-chapter"></span></span><section id="calibrators">
+<h1>Calibrators<a class="headerlink" href="#calibrators" title="Permalink to this heading">#</a></h1>
+<p>The main focus of the euv_fitting package is finding the calibration, or the
+relationship between channel number and wavelength.</p>
 <section id="calibration-process">
 <h2>Calibration Process<a class="headerlink" href="#calibration-process" title="Permalink to this heading">#</a></h2>
-<p>Uncertainty Analysis, Intensity Calibration, Etc.</p>
+<p>Each calibration line will have a certain channel position (given by the peak fitting)
+and a wavelength. If we make a graph with channel position on the x-axis and
+wavelength on the y-axis, a line at channel number 1000 and an 8.8 nm wavelength
+looks like this:</p>
+<div class="jupyter_cell docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/calibration_0_0.png" src="_images/calibration_0_0.png" />
+</div>
+</div>
+<p>The channel uncertainty is calculated in the peak fitting process, while the wavelength
+comes from the literature source for that line. For a more detailed description of
+how uncertainties and outliers are handled, see the uncertainties page.</p>
+<p>If multiple calibration lines have been identified, that gives us many
+(x, y) points we can use to estimate the calibration curve. The <cite>Calibrator</cite>
+class stores identified calibration lines in <cite>Calibrator.solution_arr</cite>.
+.solution_arr has the shape (N x 4), where N is the number of calibration lines used.
+Each row has the form [wavelength, wavelength_uncertainty, channel, channel_uncertainty].</p>
+<p>As an example, consider these neon and background spectra which were taken at roughly the same time:</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">euv_fitting.calibrate.utils</span> <span class="kn">import</span> <span class="n">SpeReader</span><span class="p">,</span> <span class="n">CosmicRayFilter</span>
+<span class="kn">from</span> <span class="nn">euv_fitting.calibrate.calibrators</span> <span class="kn">import</span> <span class="n">Distance_Calibrator</span>
+
+<span class="n">CRF</span> <span class="o">=</span> <span class="n">CosmicRayFilter</span><span class="p">()</span>
+
+<span class="n">Ne_spe</span> <span class="o">=</span> <span class="n">SpeReader</span><span class="p">(</span><span class="s1">&#39;./example_data/Example_Neon.SPE&#39;</span><span class="p">)</span>
+<span class="n">Bkg_spe</span> <span class="o">=</span> <span class="n">SpeReader</span><span class="p">(</span><span class="s1">&#39;./example_data/Example_Background.SPE&#39;</span><span class="p">)</span>
+
+<span class="n">Ne_img</span> <span class="o">=</span> <span class="n">CRF</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Ne_spe</span><span class="o">.</span><span class="n">load_img</span><span class="p">())</span>
+<span class="n">Bkg_img</span> <span class="o">=</span> <span class="n">CRF</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Bkg_spe</span><span class="o">.</span><span class="n">load_img</span><span class="p">())</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Ne_img</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Ne&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Bkg_img</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Bkg&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Channel&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/calibration_1_0.png" src="_images/calibration_1_0.png" />
+</div>
+</div>
+<p>To identify the lines in these spectra, we create <cite>Distance_Calibrator</cite> objects
+and call their <cite>.calibrate</cite> method.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ne_cal</span> <span class="o">=</span> <span class="n">Distance_Calibrator</span><span class="p">(</span><span class="n">Ne_img</span><span class="p">,</span> <span class="s1">&#39;Ne&#39;</span><span class="p">,</span> <span class="n">num_peaks</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span> <span class="c1">#specify element and #peaks</span>
+<span class="n">Bkg_cal</span> <span class="o">=</span> <span class="n">Distance_Calibrator</span><span class="p">(</span><span class="n">Bkg_img</span><span class="p">,</span> <span class="s1">&#39;Ba&#39;</span><span class="p">,</span> <span class="n">num_peaks</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span> <span class="c1">#specify element and #peaks</span>
+
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">calibrate</span><span class="p">()</span>
+<span class="n">Bkg_cal</span><span class="o">.</span><span class="n">calibrate</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Neon Solution Array&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Ne_cal</span><span class="o">.</span><span class="n">solution_arr</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Background Solution Array&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Bkg_cal</span><span class="o">.</span><span class="n">solution_arr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>selecting best peaks
+selecting best peaks
+</pre></div>
+</div>
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Neon Solution Array
+[[8.80929000e+00 1.40000000e-04 7.62421231e+02 2.58781802e-02]
+ [9.75020000e+00 4.00000000e-04 8.90567351e+02 3.55102613e-02]
+ [1.11136000e+01 1.80000000e-03 1.06748262e+03 3.36749072e-02]
+ [1.16691000e+01 5.00000000e-04 1.13674959e+03 2.73318275e-02]
+ [1.27676000e+01 7.00000000e-04 1.26986371e+03 1.56628562e-02]
+ [1.43314000e+01 7.00000000e-04 1.45125753e+03 2.30675110e-02]
+ [1.47138000e+01 7.00000000e-04 1.49425996e+03 4.19253220e-02]
+ [1.76186000e+01 2.80000000e-04 1.80726417e+03 2.92112055e-02]
+ [1.95004000e+01 8.00000000e-04 1.99888699e+03 2.73615248e-02]]
+Background Solution Array
+[[5.21540000e+00 2.50000000e-03 2.09996430e+02 6.03119420e-02]
+ [5.67700000e+00 1.00000000e-03 2.88094113e+02 4.50670806e-02]
+ [5.98460000e+00 2.00000000e-04 3.38510633e+02 7.24005140e-02]
+ [6.16220000e+00 2.50000000e-03 3.67006855e+02 9.25922924e-02]
+ [6.28800000e+00 3.00000000e-03 3.88270099e+02 5.29248232e-02]
+ [6.66230000e+00 7.00000000e-04 4.46800576e+02 3.19296907e-02]
+ [1.17686000e+01 1.00000000e-03 1.14876942e+03 3.39887742e-02]
+ [1.23920000e+01 3.00000000e-03 1.22513586e+03 2.31265415e-02]
+ [1.25818000e+01 5.00000000e-03 1.24772767e+03 4.11585546e-02]
+ [1.29930000e+01 3.00000000e-03 1.29716876e+03 3.89691709e-02]
+ [1.33246000e+01 1.40000000e-03 1.33537973e+03 5.23796173e-02]
+ [1.50101000e+01 5.00000000e-04 1.52770709e+03 3.52752553e-02]
+ [1.72169000e+01 3.00000000e-04 1.76518033e+03 8.77637881e-02]
+ [1.73081000e+01 5.00000000e-04 1.77455803e+03 1.19250428e-01]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we were to use each of these files <em>individually</em>, we would only get part of
+the story; In general, Neon files have more calibration lines in the high wavelength
+region, while Background files fill out the lower wavelengths. To take advantage
+of all information, we can join these two calibrators together:</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ne_cal</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">Bkg_cal</span><span class="p">])</span> <span class="c1">#Could add more calibrators if available to this list.</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total Solution Array&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Ne_cal</span><span class="o">.</span><span class="n">solution_arr</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>Total Solution Array
+[[8.80929000e+00 1.40000000e-04 7.62421231e+02 2.58781802e-02]
+ [9.75020000e+00 4.00000000e-04 8.90567351e+02 3.55102613e-02]
+ [1.11136000e+01 1.80000000e-03 1.06748262e+03 3.36749072e-02]
+ [1.16691000e+01 5.00000000e-04 1.13674959e+03 2.73318275e-02]
+ [1.27676000e+01 7.00000000e-04 1.26986371e+03 1.56628562e-02]
+ [1.43314000e+01 7.00000000e-04 1.45125753e+03 2.30675110e-02]
+ [1.47138000e+01 7.00000000e-04 1.49425996e+03 4.19253220e-02]
+ [1.76186000e+01 2.80000000e-04 1.80726417e+03 2.92112055e-02]
+ [1.95004000e+01 8.00000000e-04 1.99888699e+03 2.73615248e-02]
+ [5.21540000e+00 2.50000000e-03 2.09996430e+02 6.03119420e-02]
+ [5.67700000e+00 1.00000000e-03 2.88094113e+02 4.50670806e-02]
+ [5.98460000e+00 2.00000000e-04 3.38510633e+02 7.24005140e-02]
+ [6.16220000e+00 2.50000000e-03 3.67006855e+02 9.25922924e-02]
+ [6.28800000e+00 3.00000000e-03 3.88270099e+02 5.29248232e-02]
+ [6.66230000e+00 7.00000000e-04 4.46800576e+02 3.19296907e-02]
+ [1.17686000e+01 1.00000000e-03 1.14876942e+03 3.39887742e-02]
+ [1.23920000e+01 3.00000000e-03 1.22513586e+03 2.31265415e-02]
+ [1.25818000e+01 5.00000000e-03 1.24772767e+03 4.11585546e-02]
+ [1.29930000e+01 3.00000000e-03 1.29716876e+03 3.89691709e-02]
+ [1.33246000e+01 1.40000000e-03 1.33537973e+03 5.23796173e-02]
+ [1.50101000e+01 5.00000000e-04 1.52770709e+03 3.52752553e-02]
+ [1.72169000e+01 3.00000000e-04 1.76518033e+03 8.77637881e-02]
+ [1.73081000e+01 5.00000000e-04 1.77455803e+03 1.19250428e-01]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <cite>Calibrator</cite> class also handles calculating the calibration from that array.
+The final step is to call the <cite>.fit()</cite> method and print out information about how
+the fit went.</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Ne_cal</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">residual_plot</span><span class="p">()</span>
+<span class="n">Ne_cal</span><span class="o">.</span><span class="n">print_info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/calibration_4_0.png" src="_images/calibration_4_0.png" />
+<img alt="_images/calibration_4_1.png" src="_images/calibration_4_1.png" />
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>K0 = 4.051760979290335±0.003037473135061028
+K1 = 0.005274290727274932±1.1718352123140706e-05
+K2 = 1.2887169025469727e-06±1.2352525685988656e-08
+K3 = -2.9330230066183045e-11±3.842164006338311e-12
+Highest/Average channel uncertainty 1.14e-03 / 3.63e-04
+Highest/Average wavelength uncertainty 5.00e-03 / 1.36e-03
+Systematic Uncertainty: 0.0010382812499999975
+Unadjusted Chi-square: 2.41881744438093
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="calibrator">
-<h2>Calibrator<a class="headerlink" href="#calibrator" title="Permalink to this heading">#</a></h2>
+<h2><a class="reference internal" href="#euv_fitting.calibrate.calibrators.Calibrator" title="euv_fitting.calibrate.calibrators.Calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Calibrator</span></code></a><a class="headerlink" href="#calibrator" title="Permalink to this heading">#</a></h2>
 <p>Includes general calibration functionality such as uncertainty analysis,
 intensity calibration, printing, and plotting.</p>
-<dl class="py class">
+<blockquote>
+<div><dl class="py class">
 <dt class="sig sig-object py" id="euv_fitting.calibrate.calibrators.Calibrator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">euv_fitting.calibrate.calibrators.</span></span><span class="sig-name descname"><span class="pre">Calibrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.calibrators.Calibrator" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Calibrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.calibrators.Calibrator" title="Permalink to this definition">#</a></dt>
 <dd><p>Parent class of DistanceCalibrator and DFSCalibrator. Includes uncertainty analysis,
 plotting, and outlier detection for final analysis.</p>
 <p>If initializing from array, the calibrator class by itself expects the format:
@@ -511,13 +692,53 @@ Must have shape N x N, where N is the number of calibration parameters.</p></li>
 
 </dd></dl>
 
+</div></blockquote>
 </section>
 <section id="distance-calibrator">
-<h2>Distance Calibrator<a class="headerlink" href="#distance-calibrator" title="Permalink to this heading">#</a></h2>
-<p>Child class of :Calibrator:, identifies calibration lines based on their relative distances.</p>
+<h2><a class="reference internal" href="#euv_fitting.calibrate.calibrators.Distance_Calibrator" title="euv_fitting.calibrate.calibrators.Distance_Calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Distance_Calibrator</span></code></a><a class="headerlink" href="#distance-calibrator" title="Permalink to this heading">#</a></h2>
+<p>Currently, the only supported method of line identification is <strong>Distance Calibration</strong>,
+which analyzes the relative distance between peaks to identify well-known calibration lines.
+In any given spectra, the channel distance between peaks stays relatively constant.
+Arrays of well known peaks for Ne, Bkg, and Ar files are stored in distance files.</p>
+<p>For example the distance file for neon looks like:</p>
+<div class="jupyter_cell jupyter_container docutils container">
+<div class="cell_input code_cell docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">ne_dis</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;../euv_fitting/calibrate/dis_files/NeO_distances.csv&#39;</span><span class="p">,</span> <span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">ne_dis</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-none notranslate"><div class="highlight"><pre><span></span>[[ 7.57640000e+00  4.00000000e-04 -1.76901644e+02]
+ [ 8.80929000e+00  1.40000000e-04  0.00000000e+00]
+ [ 9.75020000e+00  4.00000000e-04  1.27844000e+02]
+ [ 1.11136000e+01  1.80000000e-03  3.04301000e+02]
+ [ 1.16691000e+01  5.00000000e-04  3.73434000e+02]
+ [ 1.27676000e+01  7.00000000e-04  5.06394000e+02]
+ [ 1.43314000e+01  7.00000000e-04  6.87520000e+02]
+ [ 1.47138000e+01  7.00000000e-04  7.30589000e+02]
+ [ 1.50101000e+01  5.00000000e-04  7.63667000e+02]
+ [ 1.76186000e+01  2.80000000e-04  1.04329000e+03]
+ [ 1.95004000e+01  8.00000000e-04  1.23294000e+03]
+ [ 2.33382000e+01  1.00000000e-03  1.60221000e+03]
+ [ 2.45404000e+01  3.40000000e-04  1.71233000e+03]
+ [ 2.55352000e+01  1.40000000e-03  1.80123000e+03]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each row represents a different calibration line. The first and second column
+are the wavelength and wavelength uncertainty of the line. The last column is the
+channel distance from a given line to the reference line.
+For neon, the reference line is 8.80929 nm, as indicated by the 0 in the last column
+(the distance from the reference line to itself has to be 0). <cite>Distance_Calibrator.calibrate()</cite>
+tries each peak in a spectra as the reference line, and looks for other peaks
+at the channel distances given in the calibration file.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="euv_fitting.calibrate.calibrators.Distance_Calibrator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">euv_fitting.calibrate.calibrators.</span></span><span class="sig-name descname"><span class="pre">Distance_Calibrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Ne'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf_dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauss_locs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.calibrators.Distance_Calibrator" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Distance_Calibrator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">element</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Ne'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_peaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf_dataset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gauss_locs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gaussian'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_poly</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#euv_fitting.calibrate.calibrators.Distance_Calibrator" title="Permalink to this definition">#</a></dt>
 <dd><p>Current (as of 7/1/2022) preferred calibrator. Takes in 1d array of intensity values,
 fits it with a sum-of-gaussians (multipeakgaussian), and identifies features
 based on their relative positions.</p>
@@ -577,6 +798,15 @@ the detected lines.</p>
         <p class="prev-next-title">Peak Fitters</p>
       </div>
     </a>
+    <a class="right-next"
+       href="uncertainty.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Uncertainties</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div></div>
   
 </div>
@@ -596,7 +826,7 @@ the detected lines.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-process">Calibration Process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrator">Calibrator</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Calibrator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.calibrators.Calibrator"><code class="docutils literal notranslate"><span class="pre">Calibrator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.calibrators.Calibrator.confidence_bands"><code class="docutils literal notranslate"><span class="pre">Calibrator.confidence_bands()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.calibrators.Calibrator.eval_chi_square"><code class="docutils literal notranslate"><span class="pre">Calibrator.eval_chi_square()</span></code></a></li>
@@ -611,7 +841,7 @@ the detected lines.</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-calibrator">Distance Calibrator</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-calibrator"><code class="xref py py-class docutils literal notranslate"><span class="pre">Distance_Calibrator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.calibrators.Distance_Calibrator"><code class="docutils literal notranslate"><span class="pre">Distance_Calibrator</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.calibrators.Distance_Calibrator.calibrate"><code class="docutils literal notranslate"><span class="pre">Distance_Calibrator.calibrate()</span></code></a></li>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#euv_fitting.calibrate.calibrators.Distance_Calibrator.improve_calibration"><code class="docutils literal notranslate"><span class="pre">Distance_Calibrator.improve_calibration()</span></code></a></li>

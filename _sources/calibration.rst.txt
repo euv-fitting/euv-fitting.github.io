@@ -1,28 +1,159 @@
 .. _calibration_Chapter:
 
+.. module:: euv_fitting.calibrate.calibrators
+
+
 =========================
 Calibrators
 =========================
 
+The main focus of the euv_fitting package is finding the calibration, or the
+relationship between channel number and wavelength.
+
+
 Calibration Process
 ===================
 
-Uncertainty Analysis, Intensity Calibration, Etc.
+Each calibration line will have a certain channel position (given by the peak fitting)
+and a wavelength. If we make a graph with channel position on the x-axis and
+wavelength on the y-axis, a line at channel number 1000 and an 8.8 nm wavelength
+looks like this:
+
+.. jupyter-execute::
+    :hide-code:
 
 
-Calibrator
-==========
+
+    import matplotlib.pyplot as plt
+
+    f, ax = plt.subplots()
+    plt.plot(1000, 8.8, 'xb', markersize = 7.5)
+    plt.xlabel('Channel [-]')
+    plt.ylabel('Wavelength [nm]')
+    plt.title('A 8.8 nm Line at Channel Number 1000')
+    plt.xlim(0, 2048)
+    plt.ylim(0, 20)
+
+    axin = ax.inset_axes([0.1, 0.6, 0.35, 0.35])
+    axin.errorbar(1000, 8.8, yerr = 0.005, xerr = .8, fmt = 'xb')
+    axin.set_xlim([997.5, 1002.5])
+    axin.set_ylim([8.79, 8.81])
+
+    plt.show()
+
+
+The channel uncertainty is calculated in the peak fitting process, while the wavelength
+comes from the literature source for that line. For a more detailed description of
+how uncertainties and outliers are handled, see the uncertainties page.
+
+If multiple calibration lines have been identified, that gives us many
+(x, y) points we can use to estimate the calibration curve. The `Calibrator`
+class stores identified calibration lines in `Calibrator.solution_arr`.
+.solution_arr has the shape (N x 4), where N is the number of calibration lines used.
+Each row has the form [wavelength, wavelength_uncertainty, channel, channel_uncertainty].
+
+As an example, consider these neon and background spectra which were taken at roughly the same time:
+
+.. jupyter-execute::
+
+    from euv_fitting.calibrate.utils import SpeReader, CosmicRayFilter
+    from euv_fitting.calibrate.calibrators import Distance_Calibrator
+
+    CRF = CosmicRayFilter()
+
+    Ne_spe = SpeReader('./example_data/Example_Neon.SPE')
+    Bkg_spe = SpeReader('./example_data/Example_Background.SPE')
+
+    Ne_img = CRF.apply(Ne_spe.load_img())
+    Bkg_img = CRF.apply(Bkg_spe.load_img())
+
+    plt.plot(Ne_img, label = 'Ne')
+    plt.plot(Bkg_img, label = 'Bkg')
+    plt.xlabel('Channel')
+    plt.legend()
+    plt.show()
+
+To identify the lines in these spectra, we create `Distance_Calibrator` objects
+and call their `.calibrate` method.
+
+.. jupyter-execute::
+
+    Ne_cal = Distance_Calibrator(Ne_img, 'Ne', num_peaks = 25) #specify element and #peaks
+    Bkg_cal = Distance_Calibrator(Bkg_img, 'Ba', num_peaks = 25) #specify element and #peaks
+
+    Ne_cal.calibrate()
+    Bkg_cal.calibrate()
+
+    print('Neon Solution Array')
+    print(Ne_cal.solution_arr)
+
+    print('Background Solution Array')
+    print(Bkg_cal.solution_arr)
+
+If we were to use each of these files *individually*, we would only get part of
+the story; In general, Neon files have more calibration lines in the high wavelength
+region, while Background files fill out the lower wavelengths. To take advantage
+of all information, we can join these two calibrators together:
+
+.. jupyter-execute::
+
+    Ne_cal.join([Bkg_cal]) #Could add more calibrators if available to this list.
+
+    print('Total Solution Array')
+    print(Ne_cal.solution_arr)
+
+The `Calibrator` class also handles calculating the calibration from that array.
+The final step is to call the `.fit()` method and print out information about how
+the fit went.
+
+.. jupyter-execute::
+
+    Ne_cal.fit()
+    Ne_cal.plot()
+    Ne_cal.residual_plot()
+    Ne_cal.print_info()
+
+
+
+
+
+
+
+
+
+:class:`Calibrator`
+===================
 
 Includes general calibration functionality such as uncertainty analysis,
 intensity calibration, printing, and plotting.
 
-.. autoclass:: euv_fitting.calibrate.calibrators.Calibrator
-   :members:
+    .. autoclass:: Calibrator
+       :members:
 
-Distance Calibrator
-===================
+:class:`Distance_Calibrator`
+=============================
 
-Child class of :Calibrator:, identifies calibration lines based on their relative distances.
+Currently, the only supported method of line identification is **Distance Calibration**,
+which analyzes the relative distance between peaks to identify well-known calibration lines.
+In any given spectra, the channel distance between peaks stays relatively constant.
+Arrays of well known peaks for Ne, Bkg, and Ar files are stored in distance files.
 
-.. autoclass:: euv_fitting.calibrate.calibrators.Distance_Calibrator
+For example the distance file for neon looks like:
+
+.. jupyter-execute::
+
+    import numpy as np
+    ne_dis = np.loadtxt('../euv_fitting/calibrate/dis_files/NeO_distances.csv', delimiter = ',')
+
+    print(ne_dis)
+
+Each row represents a different calibration line. The first and second column
+are the wavelength and wavelength uncertainty of the line. The last column is the
+channel distance from a given line to the reference line.
+For neon, the reference line is 8.80929 nm, as indicated by the 0 in the last column
+(the distance from the reference line to itself has to be 0). `Distance_Calibrator.calibrate()`
+tries each peak in a spectra as the reference line, and looks for other peaks
+at the channel distances given in the calibration file.
+
+.. autoclass:: Distance_Calibrator
    :members:
